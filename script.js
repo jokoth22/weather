@@ -35,40 +35,49 @@ function display5DayForecast(data) {
     const forecastDiv = document.getElementById('forecast');
     forecastDiv.innerHTML = '';  // Clear previous forecast
     
-    for (let i = 0; i < data.list.length; i+=8) {  // Use every 8th data point for daily forecast (5-day forecast with 3-hourly data points)
+    for (let i = 0; i < data.list.length; i+=8) {  
         const dayData = data.list[i];
         
         const dayDiv = document.createElement('div');
-        dayDiv.classList.add('day');
+        dayDiv.classList.add('col-md-2', 'mb-4');
 
-        const date = document.createElement('p');
-        date.classList.add('date');
+        const card = document.createElement('div');
+        card.classList.add('card', 'h-100');
+        dayDiv.appendChild(card);
+
+        const cardBody = document.createElement('div');
+        cardBody.classList.add('card-body');
+        card.appendChild(cardBody);
+
+        const date = document.createElement('h6');
+        date.classList.add('card-subtitle', 'mb-2', 'text-muted');
         date.textContent = new Date(dayData.dt * 1000).toLocaleDateString();
-        dayDiv.appendChild(date);
+        cardBody.appendChild(date);
 
         const weatherIcon = document.createElement('img');
-        weatherIcon.classList.add('weather-icon');
+        weatherIcon.classList.add('mb-2');
         weatherIcon.src = "http://openweathermap.org/img/w/" + dayData.weather[0].icon + ".png";
-        dayDiv.appendChild(weatherIcon);
+        cardBody.appendChild(weatherIcon);
 
         const temperature = document.createElement('p');
-        temperature.classList.add('temperature');
-        temperature.textContent = "Temperature: " + (dayData.main.temp - 273.15).toFixed(2) + "°C";
-        dayDiv.appendChild(temperature);
+        temperature.classList.add('card-text');
+        temperature.textContent = "Temp: " + (dayData.main.temp - 273.15).toFixed(2) + "°C";
+        cardBody.appendChild(temperature);
 
         const windSpeed = document.createElement('p');
-        windSpeed.classList.add('wind-speed');
-        windSpeed.textContent = "Wind Speed: " + dayData.wind.speed + " m/s";
-        dayDiv.appendChild(windSpeed);
+        windSpeed.classList.add('card-text');
+        windSpeed.textContent = "Wind: " + dayData.wind.speed + " m/s";
+        cardBody.appendChild(windSpeed);
 
         const humidity = document.createElement('p');
-        humidity.classList.add('humidity');
+        humidity.classList.add('card-text');
         humidity.textContent = "Humidity: " + dayData.main.humidity + "%";
-        dayDiv.appendChild(humidity);
+        cardBody.appendChild(humidity);
 
         forecastDiv.appendChild(dayDiv);
     }
 }
+
 
 function addCityToHistory(city) {
     const history = getCityHistory();
