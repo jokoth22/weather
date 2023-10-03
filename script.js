@@ -39,11 +39,11 @@ function display5DayForecast(data) {
         const dayData = data.list[i];
         
         const dayDiv = document.createElement('div');
-        dayDiv.classList.add('col-md-2', 'mb-4');
+        dayDiv.classList.add('col-12','col-md-auto','mb-4');
 
-        const card = document.createElement('div');
-        card.classList.add('card', 'h-100');
-        dayDiv.appendChild(card);
+       const card = document.createElement('div');
+       card.classList.add('card');
+       dayDiv.appendChild(card);
 
         const cardBody = document.createElement('div');
         cardBody.classList.add('card-body');
